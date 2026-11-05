@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 import {
   Mail, Phone, MapPin, Menu, X, Moon, Sun, ArrowRight, ArrowUpRight,
   Code2, Server, Database, Cloud, Wrench, Briefcase, GraduationCap,
-  Ship, Calendar, FileText, Send, CheckCircle2, AlertCircle, Loader2, ChevronDown,
+  Ship, Calendar, FileText, Send, CheckCircle2, AlertCircle, Loader2, ChevronDown, Linkedin, Github,
 } from 'lucide-react'
 import profile from './profile.jpg'
 import './Portfolio.css'
 
 const EMAIL = 'pavansarapu85@gmail.com'
 const PHONE = '+91 9390337575'
+const LINKEDIN = 'https://www.linkedin.com/in/pavan-sai-sarapu-5a1984228'
+const GITHUB = 'https://github.com/PAVANSAI2468'
 // Free key from https://web3forms.com (sent to your inbox). Put it in portfolio/.env
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 
@@ -17,24 +19,27 @@ const NAV = ['About', 'Skills', 'Experience', 'Projects', 'Education', 'Contact'
 const ROLES = ['Full Stack Developer', 'React.js Developer', 'Node.js Developer']
 
 const STATS = [
-  { value: '1y 10m', label: 'Professional experience' },
-  { value: '3', label: 'Freight modes: sea, air, road' },
-  { value: '4+', label: 'Third-party API integrations' },
+  { value: '1y 10m', label: 'Experience' },
+  { value: '5', label: 'Client companies' },
+  { value: '~500', label: 'Platform users' },
+  { value: '20', label: 'Team members' },
 ]
+
+const HERO_STACK = ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MySQL', 'AWS']
 
 const QUICK_INFO = [
   { icon: MapPin, label: 'Location', value: 'Hyderabad, India' },
-  { icon: Briefcase, label: 'Current role', value: 'Full Stack Developer @ VoltusWave' },
+  { icon: Briefcase, label: 'Recent role', value: 'Full Stack Developer @ VoltusWave' },
   { icon: GraduationCap, label: 'Education', value: 'MCA, 2024 · CGPA 8.0' },
-  { icon: Mail, label: 'Email', value: EMAIL, href: `mailto:${EMAIL}` },
+  { icon: Linkedin, label: 'LinkedIn', value: 'pavan-sai-sarapu', href: LINKEDIN },
 ]
 
 const SKILLS = [
-  { icon: Code2, title: 'Frontend', items: ['React.js', 'Redux Toolkit', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'shadcn/ui'] },
+  { icon: Code2, title: 'Frontend', items: ['React.js', 'Redux Toolkit', 'TypeScript', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Tailwind CSS', 'shadcn/ui'] },
   { icon: Server, title: 'Backend', items: ['Node.js', 'Express.js', 'REST APIs', 'JWT Authentication'] },
   { icon: Database, title: 'Database', items: ['MySQL', 'SQL', 'Data Modeling', 'Database Design'] },
-  { icon: Cloud, title: 'Cloud & APIs', items: ['AWS', 'AWS Lambda', 'Google Cloud Platform', 'Google Drive API', 'Google Calendar API', 'Outlook Calendar API'] },
-  { icon: Wrench, title: 'Tools', items: ['Git', 'GitHub', 'Jira', 'Postman', 'Agile', 'LLM Integrations'] },
+  { icon: Cloud, title: 'Cloud & APIs', items: ['AWS', 'AWS Lambda', 'Google Cloud Platform', 'Google Drive API', 'Google Calendar API', 'Outlook Calendar API', 'Zoom'] },
+  { icon: Wrench, title: 'Tools', items: ['Docker', 'Git', 'GitHub', 'Jira', 'Postman', 'Agile / Scrum'] },
 ]
 
 const EXPERIENCE = [
@@ -44,37 +49,36 @@ const EXPERIENCE = [
     period: 'Dec 2024 – Oct 2026',
     location: 'Hyderabad, India',
     points: [
-      'Worked across core Freight ERP modules, with substantial involvement in Freight and Accounting functionality.',
-      'Developed and maintained freight enquiry workflows for sea, air and road transportation, supporting operational processing.',
-      'Worked on CRM and business workflows covering customers, suppliers, carriers, sales and freight operations.',
-      'Implemented frontend functionality using React.js and Redux Toolkit, and developed backend services and REST APIs using Node.js and Express.js.',
-      'Worked on Accounting module features, including configuration and soft-delete functionality across frontend and backend workflows.',
-      'Integrated Google Calendar and Outlook Calendar APIs into the Sales application to support calendar-based scheduling.',
-      'Worked on AI-assisted email extraction to capture relevant information from incoming business emails and reduce manual data entry.',
-      'Built dynamic PDF template-generation functionality, inserting application data into predefined templates and integrating with the Google Drive API.',
-      'Worked with MySQL for application data storage, querying and backend workflows; supported deployment and cloud-based application operations.',
+      'Developed features for a multi-tenant Freight ERP (sea, air and road freight) serving 5 client companies and ~500 users, as part of a 20-member development team.',
+      'Built and maintained Accounting workflows and freight business functions, including report generation that gives operations and finance teams visibility into financial and shipment data.',
+      'Designed responsive interfaces with React.js and Redux Toolkit and built backend services and REST APIs with Node.js and Express.js.',
+      'Implemented CRM and operational workflows for customers, suppliers, carriers and sales processes across the platform.',
+      'Integrated Google Calendar, Outlook Calendar and Zoom APIs into the Sales application for scheduling and meeting workflows.',
+      'Contributed to AI-assisted email extraction that captures enquiry details from incoming emails and reduces manual data entry.',
+      'Developed a dynamic PDF template engine that populates predefined templates with application data using the Google Drive API.',
+      'Supported production operations and data workflows on AWS-based infrastructure.',
     ],
-    stack: ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MySQL', 'AWS', 'Google Cloud'],
+    stack: ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MySQL', 'AWS', 'Google Cloud', 'Zoom API'],
   },
 ]
 
 const PROJECTS = [
   {
     icon: Ship,
-    title: 'Freight ERP & Accounting Platform',
-    desc: 'Enterprise freight management system supporting sea, air and road enquiries, customer CRM, suppliers, carriers, freight operations and accounting workflows. Contributed across modules, with a stronger focus on Freight and Accounting.',
-    tags: ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MySQL'],
+    title: 'Freight ERP — Accounting & Freight Management',
+    desc: 'Multi-tenant enterprise platform covering enquiries, CRM, suppliers, carriers, operations and accounting. Delivered accounting features, freight workflows and financial / shipment reports.',
+    tags: ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MySQL', 'AWS'],
   },
   {
     icon: Calendar,
-    title: 'AI Email Extraction & Sales Calendar',
-    desc: 'AI-assisted extraction of business information from emails, plus Google Calendar and Outlook Calendar API integration in the Sales application for scheduling workflows.',
-    tags: ['LLM Integrations', 'Google Calendar API', 'Outlook Calendar API'],
+    title: 'Sales Calendar & AI Email Integration',
+    desc: "Connected sales users' Google Calendar, Outlook Calendar and Zoom meetings to the CRM, and contributed AI-assisted extraction of business details from incoming emails.",
+    tags: ['Google Calendar API', 'Outlook Calendar API', 'Zoom', 'Node.js'],
   },
   {
     icon: FileText,
     title: 'Dynamic PDF Template Engine',
-    desc: 'A template engine that dynamically inserts application data into PDF templates, with Google Drive API integration.',
+    desc: 'Generates documents from predefined templates by automatically inserting live application data, with storage through the Google Drive API.',
     tags: ['Node.js', 'Google Drive API', 'PDF Generation'],
   },
 ]
@@ -327,7 +331,7 @@ export default function Portfolio() {
 
           <div className="pf-container pf-hero-grid">
             <div className="pf-hero-text">
-              <span className="pf-badge pf-fade" style={{ '--d': '0ms' }}><span className="pf-dot" /> Available for new opportunities</span>
+              <span className="pf-badge pf-fade" style={{ '--d': '0ms' }}><span className="pf-dot" /> Available to join immediately</span>
               <p className="pf-hello pf-fade" style={{ '--d': '80ms' }}>Hello, I'm</p>
               <h1 className="pf-h1 pf-fade" style={{ '--d': '160ms' }}>
                 Pavan Sai <span className="pf-gradient-text">Sarapu</span>
@@ -336,39 +340,52 @@ export default function Portfolio() {
                 <span className="pf-role-text">{role}</span><span className="pf-caret" />
               </p>
               <p className="pf-lead pf-fade" style={{ '--d': '320ms' }}>
-                I build freight management and CRM applications end to end, from clean React.js
-                interfaces to Node.js / Express.js REST APIs backed by MySQL.
+                I build enterprise software end to end, from responsive React.js interfaces to
+                Node.js / Express.js REST APIs backed by MySQL, shipped on a multi-tenant Freight ERP used by ~500 people.
               </p>
               <div className="pf-cta pf-fade" style={{ '--d': '400ms' }}>
                 <a href="#contact" className="pf-btn pf-btn-primary">Get in touch <ArrowRight size={16} /></a>
                 <a href="#projects" className="pf-btn pf-btn-ghost">View my work</a>
               </div>
               <div className="pf-meta pf-fade" style={{ '--d': '480ms' }}>
-                <a href={`mailto:${EMAIL}`} aria-label="Email"><Mail size={16} /> {EMAIL}</a>
-                <span><MapPin size={16} /> Hyderabad, India</span>
+                <a href={`mailto:${EMAIL}`}><Mail size={16} /> {EMAIL}</a>
+                <a href={LINKEDIN} target="_blank" rel="noopener noreferrer"><Linkedin size={16} /> LinkedIn</a>
+                <a href={GITHUB} target="_blank" rel="noopener noreferrer"><Github size={16} /> GitHub</a>
               </div>
             </div>
 
-            <div className="pf-hero-visual pf-fade" style={{ '--d': '200ms' }}>
-              <div className="pf-avatar">
-                <span className="pf-avatar-ring" aria-hidden="true" />
-                <img src={profile} alt="Pavan Sai Sarapu" />
-              </div>
-              <span className="pf-float pf-float-1"><Code2 size={14} /> React.js</span>
-              <span className="pf-float pf-float-2"><Server size={14} /> Node.js</span>
-              <span className="pf-float pf-float-3"><Database size={14} /> MySQL</span>
-            </div>
-          </div>
-
-          <div className="pf-container">
-            <div className="pf-stats pf-fade" style={{ '--d': '560ms' }}>
-              {STATS.map((s) => (
-                <div key={s.label} className="pf-stat">
-                  <strong>{s.value}</strong>
-                  <span>{s.label}</span>
+            <aside className="pf-card pf-hero-card pf-fade" style={{ '--d': '200ms' }}>
+              <div className="pf-hc-head">
+                <div className="pf-hc-avatar">
+                  <span className="pf-avatar-ring" aria-hidden="true" />
+                  <img src={profile} alt="Pavan Sai Sarapu" />
                 </div>
-              ))}
-            </div>
+                <div>
+                  <strong>Pavan Sai Sarapu</strong>
+                  <span>Full Stack Developer</span>
+                  <small><MapPin size={13} /> Hyderabad, India</small>
+                </div>
+              </div>
+
+              <div className="pf-hc-work">
+                <p className="pf-hc-label"><Briefcase size={13} /> Recent work · VoltusWave</p>
+                <h3>Multi-tenant Freight ERP</h3>
+                <p className="pf-muted">Accounting, CRM and Sales modules for sea, air and road freight.</p>
+              </div>
+
+              <div className="pf-hc-stats">
+                {STATS.map((s) => (
+                  <div key={s.label}>
+                    <strong>{s.value}</strong>
+                    <span>{s.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pf-chips">
+                {HERO_STACK.map((t) => <span key={t} className="pf-chip pf-chip-sm">{t}</span>)}
+              </div>
+            </aside>
           </div>
 
           <a href="#about" className="pf-scroll" aria-label="Scroll to About"><ChevronDown size={20} /></a>
@@ -379,14 +396,14 @@ export default function Portfolio() {
           <div className="pf-about">
             <div className="pf-about-text pf-reveal">
               <p>
-                I'm a <strong>Full Stack Software Developer</strong> with 1 year 10 months of experience building and
-                supporting freight management and CRM applications. I've worked hands-on across freight enquiries for
-                sea, air and road operations, customer and supplier workflows, operations, and accounting.
+                I'm a <strong>Full Stack Developer</strong> with 1 year 10 months of experience building enterprise
+                software on a <strong>multi-tenant Freight ERP</strong> used by 5 client companies and ~500 users. As part
+                of a 20-member team, I delivered features across Accounting, CRM and Sales on production systems running on AWS.
               </p>
               <p>
-                I develop frontend features and backend REST APIs using <strong>React.js, Node.js, Express.js and MySQL</strong>,
-                with integrations involving AWS, Google Cloud APIs, Google Calendar and Outlook Calendar. I've also
-                worked on AI-assisted email data extraction and dynamic PDF template generation.
+                I work across the stack with <strong>React.js, Redux Toolkit, Node.js, Express.js and MySQL</strong>,
+                and have built Google Calendar, Outlook Calendar and Zoom integrations, AI-assisted email extraction
+                and a dynamic PDF template engine. I'm available to join immediately.
               </p>
               <a href="#contact" className="pf-link">Let's talk <ArrowUpRight size={16} /></a>
             </div>
@@ -493,6 +510,10 @@ export default function Portfolio() {
               <a className="pf-card pf-contact-item" href={`tel:${PHONE.replace(/\s/g, '')}`}>
                 <span className="pf-card-icon"><Phone size={18} /></span>
                 <div><small>Phone</small><span>{PHONE}</span></div>
+              </a>
+              <a className="pf-card pf-contact-item" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+                <span className="pf-card-icon"><Linkedin size={18} /></span>
+                <div><small>LinkedIn</small><span>pavan-sai-sarapu</span></div>
               </a>
               <div className="pf-card pf-contact-item">
                 <span className="pf-card-icon"><MapPin size={18} /></span>
