@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
   Mail, Phone, MapPin, Menu, X, Moon, Sun, ArrowRight, ArrowUpRight,
   Code2, Server, Database, Cloud, Wrench, Briefcase, GraduationCap,
-  Ship, Calendar, FileText, Send, CheckCircle2, AlertCircle, Loader2, ChevronDown, Linkedin, Github,
+  Ship, Calendar, FileText, Send, CheckCircle2, AlertCircle, Loader2, Linkedin, Github,
 } from 'lucide-react'
 import profile from './profile.jpg'
 import './Portfolio.css'
@@ -387,8 +387,6 @@ export default function Portfolio() {
               </div>
             </aside>
           </div>
-
-          <a href="#about" className="pf-scroll" aria-label="Scroll to About"><ChevronDown size={20} /></a>
         </section>
 
         <Section id="About" eyebrow="About me" title="Developer focused on real business workflows"

@@ -307,17 +307,6 @@ body { margin: 0; }
   color: transparent;
 }
 .pf-hc-stats span { font-size: 13px; color: var(--muted); line-height: 1.4; }
-@keyframes pf-bob { 50% { transform: translateY(-10px); } }
-
-.pf-scroll {
-  position: absolute; left: 50%; bottom: 18px;
-  transform: translateX(-50%);
-  display: grid; place-items: center;
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  animation: pf-bob 2.4s ease-in-out infinite;
-}
 
 /* Load-in animation for hero */
 .pf-fade { opacity: 0; transform: translateY(16px); animation: pf-in .7s cubic-bezier(.2, .7, .2, 1) forwards; animation-delay: var(--d, 0ms); }
@@ -629,7 +618,6 @@ a.pf-contact-item:hover { border-color: var(--accent); transform: translateX(4px
   .pf-blob-1 { width: 320px; height: 320px; }
   .pf-blob-2 { width: 280px; height: 280px; }
 
-  .pf-scroll { display: none; }
   .pf-hc-avatar { width: 80px; height: 80px; }
   .pf-hc-stats strong { font-size: 1.35rem; }
 
