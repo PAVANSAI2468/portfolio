@@ -1,243 +1,480 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from "react";
 import {
-  Mail, Phone, MapPin, Menu, X, Moon, Sun, ArrowRight, ArrowUpRight,
-  Code2, Server, Database, Cloud, Wrench, Briefcase, GraduationCap,
-  Ship, Calendar, FileText, Send, CheckCircle2, AlertCircle, Loader2, Linkedin, Github,
-} from 'lucide-react'
-import profile from './profile.jpg'
-import './Portfolio.css'
+  Mail,
+  Phone,
+  MapPin,
+  Menu,
+  X,
+  Moon,
+  Sun,
+  ArrowRight,
+  ArrowUpRight,
+  Code2,
+  Server,
+  Database,
+  Cloud,
+  Wrench,
+  Briefcase,
+  GraduationCap,
+  Ship,
+  Calendar,
+  FileText,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  Linkedin,
+  Github,
+  Calculator,
+  Sparkles,
+  Landmark,
+} from "lucide-react";
+import profile from "./profile.jpg";
+import "./Portfolio.css";
 
-const EMAIL = 'pavansarapu85@gmail.com'
-const PHONE = '+91 9390337575'
-const LINKEDIN = 'https://www.linkedin.com/in/pavan-sai-sarapu-5a1984228'
-const GITHUB = 'https://github.com/PAVANSAI2468'
+const EMAIL = "pavansarapu85@gmail.com";
+const PHONE = "+91 9390337575";
+const LINKEDIN = "https://www.linkedin.com/in/pavan-sai-sarapu-5a1984228";
+const GITHUB = "https://github.com/PAVANSAI2468";
 // Free key from https://web3forms.com (sent to your inbox). Put it in portfolio/.env
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
-const NAV = ['About', 'Skills', 'Experience', 'Projects', 'Education', 'Contact']
+const NAV = [
+  "About",
+  "Skills",
+  "Experience",
+  "Projects",
+  "Education",
+  "Contact",
+];
 
-const ROLES = ['Full Stack Developer', 'React.js Developer', 'Node.js Developer']
+const ROLES = [
+  "Full Stack Developer",
+  "React.js Developer",
+  "Node.js Developer",
+  "Freight Accounting Developer",
+];
 
 const STATS = [
-  { value: '1y 10m', label: 'Experience' },
-  { value: '5', label: 'Client companies' },
-  { value: '~500', label: 'Platform users' },
-  { value: '20', label: 'Team members' },
-]
+  { value: "1y 10m", label: "Experience" },
+  { value: "5", label: "Client companies" },
+  { value: "~500", label: "Platform users" },
+  { value: "20", label: "Team members" },
+];
 
-const HERO_STACK = ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MySQL', 'AWS']
+const HERO_STACK = [
+  "React.js",
+  "Redux Toolkit",
+  "Node.js",
+  "Express.js",
+  "MySQL",
+  "AWS",
+];
 
 const QUICK_INFO = [
-  { icon: MapPin, label: 'Location', value: 'Hyderabad, India' },
-  { icon: Briefcase, label: 'Recent role', value: 'Full Stack Developer @ VoltusWave' },
-  { icon: GraduationCap, label: 'Education', value: 'MCA, 2024 · CGPA 8.0' },
-  { icon: Linkedin, label: 'LinkedIn', value: 'pavan-sai-sarapu', href: LINKEDIN },
-]
+  { icon: MapPin, label: "Location", value: "Hyderabad, India" },
+  {
+    icon: Briefcase,
+    label: "Recent role",
+    value: "Full Stack Developer @ VoltusWave",
+  },
+  { icon: GraduationCap, label: "Education", value: "MCA, 2024 · CGPA 8.0" },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    value: "pavan-sai-sarapu",
+    href: LINKEDIN,
+  },
+];
 
 const SKILLS = [
-  { icon: Code2, title: 'Frontend', items: ['React.js', 'Redux Toolkit', 'TypeScript', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Tailwind CSS', 'shadcn/ui'] },
-  { icon: Server, title: 'Backend', items: ['Node.js', 'Express.js', 'REST APIs', 'JWT Authentication'] },
-  { icon: Database, title: 'Database', items: ['MySQL', 'SQL', 'Data Modeling', 'Database Design'] },
-  { icon: Cloud, title: 'Cloud & APIs', items: ['AWS', 'AWS Lambda', 'Google Cloud Platform', 'Google Drive API', 'Google Calendar API', 'Outlook Calendar API', 'Zoom'] },
-  { icon: Wrench, title: 'Tools', items: ['Docker', 'Git', 'GitHub', 'Jira', 'Postman', 'Agile / Scrum'] },
-]
+  {
+    icon: Code2,
+    title: "Frontend",
+    items: [
+      "React.js",
+      "Redux Toolkit",
+      "TypeScript",
+      "JavaScript (ES6+)",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "shadcn/ui",
+    ],
+  },
+  {
+    icon: Server,
+    title: "Backend",
+    items: [
+      "Node.js",
+      "Express.js",
+      "Python",
+      "REST APIs",
+      "JWT Authentication",
+    ],
+  },
+  {
+    icon: Database,
+    title: "Database",
+    items: [
+      "MySQL",
+      "SQL",
+      "Data Modeling",
+      "Database Design",
+      "Query Optimization",
+    ],
+  },
+  {
+    icon: Cloud,
+    title: "Cloud & APIs",
+    items: [
+      "AWS",
+      "AWS Lambda",
+      "Google Cloud Platform",
+      "Google Drive API",
+      "Google Calendar API",
+      "Outlook Calendar API",
+      "Zoom API",
+    ],
+  },
+  {
+    icon: Calculator,
+    title: "Accounting Domain",
+    items: [
+      "Sales & Purchase Invoices",
+      "Credit & Debit Notes",
+      "Receipts & Payments",
+      "Multi-currency",
+      "AR / AP Reports",
+      "Bank Reconciliation",
+      "Journal Entries",
+    ],
+  },
+  {
+    icon: Sparkles,
+    title: "AI / LLM",
+    items: [
+      "LLM",
+      "Prompt Engineering",
+      "Structured Data Extraction",
+      "Output Review & Validation",
+      "RAG (familiar)",
+    ],
+  },
+  {
+    icon: Wrench,
+    title: "Tools",
+    items: ["Docker", "Git", "GitHub", "Jira", "Postman", "Agile / Scrum"],
+  },
+];
 
 const EXPERIENCE = [
   {
-    company: 'VoltusWave Technologies India Pvt Ltd',
-    role: 'Full Stack Software Developer',
-    period: 'Dec 2024 – Oct 2026',
-    location: 'Hyderabad, India',
+    company: "VoltusWave Technologies India Pvt Ltd",
+    role: "Full Stack Software Developer",
+    period: "Dec 2024 – Oct 2026",
+    location: "Hyderabad, India",
     points: [
-      'Developed features for a multi-tenant Freight ERP (sea, air and road freight) serving 5 client companies and ~500 users, as part of a 20-member development team.',
-      'Built and maintained Accounting workflows and freight business functions, including report generation that gives operations and finance teams visibility into financial and shipment data.',
-      'Designed responsive interfaces with React.js and Redux Toolkit and built backend services and REST APIs with Node.js and Express.js.',
-      'Implemented CRM and operational workflows for customers, suppliers, carriers and sales processes across the platform.',
-      'Integrated Google Calendar, Outlook Calendar and Zoom APIs into the Sales application for scheduling and meeting workflows.',
-      'Contributed to AI-assisted email extraction that captures enquiry details from incoming emails and reduces manual data entry.',
-      'Developed a dynamic PDF template engine that populates predefined templates with application data using the Google Drive API.',
-      'Supported production operations and data workflows on AWS-based infrastructure.',
+      "Developed and maintained modules for a multi-tenant Freight ERP (sea, air and road freight) used by 5 client companies and ~500 users, as part of a 20-member engineering team.",
+      "Freight accounting: built and maintained workflows for customer sales invoices, supplier purchase invoices, credit notes issued to customers, debit notes raised against suppliers, payment processing and customer receipt recording.",
+      "Implemented multi-currency handling so invoices, notes, receipts and payments are recorded and reported across different currencies.",
+      "Designed and developed AR and AP reports that track customer outstanding balances, supplier payables and payment status, giving finance and operations teams clear visibility.",
+      "Bank reconciliation: after bank statement extraction, compared the extracted transactions against accounting journal entries to support transaction matching.",
+      "Contributed to LLM-assisted extraction of incoming business emails, purchase invoices and bank statements by defining required fields, refining prompts and reviewing the structured output for accuracy. A team-delivered capability; my contribution focused on prompt and content definition and response review.",
+      "Built responsive React.js interfaces with Redux Toolkit and backend services and REST APIs with Node.js and Express.js; wrote and optimized MySQL queries and supported production applications on AWS.",
+      "Implemented CRM and operational workflows for customers, suppliers, carriers, enquiries and sales, and integrated Google Calendar, Outlook Calendar and Zoom APIs into the Sales application.",
+      "Developed a dynamic PDF template engine that populates predefined templates with application data using the Google Drive API.",
     ],
-    stack: ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MySQL', 'AWS', 'Google Cloud', 'Zoom API'],
+    stack: [
+      "React.js",
+      "Redux Toolkit",
+      "Node.js",
+      "Express.js",
+      "MySQL",
+      "AWS",
+      "Google Drive API",
+      "Zoom API",
+      "LLM",
+    ],
   },
-]
+];
 
 const PROJECTS = [
   {
+    icon: Landmark,
+    title: "Freight Accounting & Financial Reporting",
+    desc: "Accounting workflows for customer invoices, supplier purchase invoices, credit notes, debit notes, receipts, payments and multi-currency transactions, with AR / AP reports that track receivables, payables and outstanding amounts.",
+    tags: ["React.js", "Node.js", "Express.js", "MySQL"],
+  },
+  {
+    icon: Sparkles,
+    title: "AI-Assisted Document Extraction & Bank Reconciliation",
+    desc: "Defined fields and refined prompts for extracting data from purchase invoices and bank statements. Extracted bank transactions are compared with journal entries for reconciliation. Team-delivered; my part was prompt definition and response review.",
+    tags: ["LLM", "Prompt Engineering", "Node.js"],
+  },
+  {
     icon: Ship,
-    title: 'Freight ERP — Accounting & Freight Management',
-    desc: 'Multi-tenant enterprise platform covering enquiries, CRM, suppliers, carriers, operations and accounting. Delivered accounting features, freight workflows and financial / shipment reports.',
-    tags: ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MySQL', 'AWS'],
+    title: "Freight ERP, Sales Integrations & PDF Generation",
+    desc: "Enquiries, CRM, suppliers, carriers and sales workflows on a multi-tenant ERP, with Google Calendar, Outlook Calendar and Zoom integrations and a dynamic PDF template engine built on the Google Drive API.",
+    tags: [
+      "React.js",
+      "Redux Toolkit",
+      "Node.js",
+      "MySQL",
+      "AWS",
+      "Google / Outlook APIs",
+    ],
   },
-  {
-    icon: Calendar,
-    title: 'Sales Calendar & AI Email Integration',
-    desc: "Connected sales users' Google Calendar, Outlook Calendar and Zoom meetings to the CRM, and contributed AI-assisted extraction of business details from incoming emails.",
-    tags: ['Google Calendar API', 'Outlook Calendar API', 'Zoom', 'Node.js'],
-  },
-  {
-    icon: FileText,
-    title: 'Dynamic PDF Template Engine',
-    desc: 'Generates documents from predefined templates by automatically inserting live application data, with storage through the Google Drive API.',
-    tags: ['Node.js', 'Google Drive API', 'PDF Generation'],
-  },
-]
+];
 
 const EDUCATION = [
-  { degree: 'Master of Computer Applications (MCA)', school: 'University Post Graduate College, Secunderabad', year: '2024', note: 'CGPA: 8.0 / 10' },
-  { degree: 'Bachelor of Science in Computer Science (B.Sc.)', school: '', year: '2022', note: '' },
-]
+  {
+    degree: "Master of Computer Applications (MCA)",
+    school: "University Post Graduate College, Secunderabad",
+    year: "2024",
+    note: "CGPA: 8.0 / 10",
+  },
+  {
+    degree: "Bachelor of Science in Computer Science (B.Sc.)",
+    school: "",
+    year: "2022",
+    note: "",
+  },
+];
 
 function getInitialTheme() {
   try {
-    const saved = localStorage.getItem('pf-theme')
-    if (saved) return saved
-  } catch { /* storage unavailable */ }
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    const saved = localStorage.getItem("pf-theme");
+    if (saved) return saved;
+  } catch {
+    /* storage unavailable */
+  }
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
 // Cycles through ROLES with a typing effect
 function useTypewriter(words, speed = 70, pause = 1600) {
-  const [text, setText] = useState('')
-  const [index, setIndex] = useState(0)
-  const [deleting, setDeleting] = useState(false)
+  const [text, setText] = useState("");
+  const [index, setIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const word = words[index % words.length]
-    const done = !deleting && text === word
-    const cleared = deleting && text === ''
-    const delay = done ? pause : deleting ? speed / 2 : speed
+    const word = words[index % words.length];
+    const done = !deleting && text === word;
+    const cleared = deleting && text === "";
+    const delay = done ? pause : deleting ? speed / 2 : speed;
 
     const t = setTimeout(() => {
-      if (done) setDeleting(true)
-      else if (cleared) { setDeleting(false); setIndex((i) => i + 1) }
-      else setText(word.slice(0, text.length + (deleting ? -1 : 1)))
-    }, delay)
-    return () => clearTimeout(t)
-  }, [text, deleting, index, words, speed, pause])
+      if (done) setDeleting(true);
+      else if (cleared) {
+        setDeleting(false);
+        setIndex((i) => i + 1);
+      } else setText(word.slice(0, text.length + (deleting ? -1 : 1)));
+    }, delay);
+    return () => clearTimeout(t);
+  }, [text, deleting, index, words, speed, pause]);
 
-  return text
+  return text;
 }
 
 // Adds .is-visible to .pf-reveal elements as they scroll into view
 function useReveal(rootRef) {
   useEffect(() => {
-    const els = rootRef.current?.querySelectorAll('.pf-reveal') ?? []
-    if (!('IntersectionObserver' in window)) {
-      els.forEach((el) => el.classList.add('is-visible'))
-      return
+    const els = rootRef.current?.querySelectorAll(".pf-reveal") ?? [];
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
     }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-visible')
-          io.unobserve(e.target)
-        }
-      })
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
-  }, [rootRef])
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [rootRef]);
 }
 
 // Tracks which section is on screen to highlight the nav link
 function useActiveSection(ids) {
-  const [active, setActive] = useState('')
+  const [active, setActive] = useState("");
   useEffect(() => {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id) })
-    }, { rootMargin: '-45% 0px -50% 0px' })
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
     ids.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) io.observe(el)
-    })
-    return () => io.disconnect()
-  }, [ids])
-  return active
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, [ids]);
+  return active;
 }
 
-const EMPTY_FORM = { name: '', email: '', subject: '', message: '' }
+const EMPTY_FORM = { name: "", email: "", subject: "", message: "" };
 
 function ContactForm() {
-  const [form, setForm] = useState(EMPTY_FORM)
-  const [status, setStatus] = useState({ state: 'idle', msg: '' })
+  const [form, setForm] = useState(EMPTY_FORM);
+  const [status, setStatus] = useState({ state: "idle", msg: "" });
 
-  const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
+  const onChange = (e) =>
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!WEB3FORMS_KEY) {
-      setStatus({ state: 'error', msg: 'Mail service is not configured yet. Please email me directly.' })
-      return
+      setStatus({
+        state: "error",
+        msg: "Mail service is not configured yet. Please email me directly.",
+      });
+      return;
     }
     // Honeypot: bots fill hidden fields, humans don't
-    if (e.target.botcheck.checked) return
+    if (e.target.botcheck.checked) return;
 
-    setStatus({ state: 'loading', msg: '' })
+    setStatus({ state: "loading", msg: "" });
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          from_name: 'Portfolio Contact Form',
+          from_name: "Portfolio Contact Form",
           subject: form.subject || `New message from ${form.name}`,
           name: form.name,
           email: form.email,
           replyto: form.email,
           message: form.message,
         }),
-      })
-      const data = await res.json()
-      if (!data.success) throw new Error(data.message || 'Something went wrong')
-      setForm(EMPTY_FORM)
-      setStatus({ state: 'success', msg: "Thanks! Your message has been sent. I'll get back to you soon." })
+      });
+      const data = await res.json();
+      if (!data.success)
+        throw new Error(data.message || "Something went wrong");
+      setForm(EMPTY_FORM);
+      setStatus({
+        state: "success",
+        msg: "Thanks! Your message has been sent. I'll get back to you soon.",
+      });
     } catch (err) {
-      setStatus({ state: 'error', msg: err.message || 'Could not send message. Please try again.' })
+      setStatus({
+        state: "error",
+        msg: err.message || "Could not send message. Please try again.",
+      });
     }
-  }
+  };
 
-  const loading = status.state === 'loading'
+  const loading = status.state === "loading";
 
   return (
     <form className="pf-card pf-form" onSubmit={onSubmit}>
       <div className="pf-form-row">
         <label className="pf-field">
           <span>Name</span>
-          <input name="name" value={form.name} onChange={onChange} required placeholder="Your name" autoComplete="name" />
+          <input
+            name="name"
+            value={form.name}
+            onChange={onChange}
+            required
+            placeholder="Your name"
+            autoComplete="name"
+          />
         </label>
         <label className="pf-field">
           <span>Email</span>
-          <input type="email" name="email" value={form.email} onChange={onChange} required placeholder="you@example.com" autoComplete="email" />
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={onChange}
+            required
+            placeholder="you@example.com"
+            autoComplete="email"
+          />
         </label>
       </div>
       <label className="pf-field">
-        <span>Subject <em>(optional)</em></span>
-        <input name="subject" value={form.subject} onChange={onChange} placeholder="Job opportunity, project, etc." />
+        <span>
+          Subject <em>(optional)</em>
+        </span>
+        <input
+          name="subject"
+          value={form.subject}
+          onChange={onChange}
+          placeholder="Job opportunity, project, etc."
+        />
       </label>
       <label className="pf-field">
         <span>Message</span>
-        <textarea name="message" value={form.message} onChange={onChange} required rows={5} minLength={10} placeholder="Tell me a bit about what you have in mind..." />
+        <textarea
+          name="message"
+          value={form.message}
+          onChange={onChange}
+          required
+          rows={5}
+          minLength={10}
+          placeholder="Tell me a bit about what you have in mind..."
+        />
       </label>
-      <input type="checkbox" name="botcheck" className="pf-hp" tabIndex={-1} autoComplete="off" />
+      <input
+        type="checkbox"
+        name="botcheck"
+        className="pf-hp"
+        tabIndex={-1}
+        autoComplete="off"
+      />
 
-      <button type="submit" className="pf-btn pf-btn-primary pf-form-submit" disabled={loading}>
-        {loading ? <><Loader2 size={16} className="pf-spin" /> Sending...</> : <>Send message <Send size={16} /></>}
+      <button
+        type="submit"
+        className="pf-btn pf-btn-primary pf-form-submit"
+        disabled={loading}
+      >
+        {loading ? (
+          <>
+            <Loader2 size={16} className="pf-spin" /> Sending...
+          </>
+        ) : (
+          <>
+            Send message <Send size={16} />
+          </>
+        )}
       </button>
 
-      {status.state === 'success' && (
-        <p className="pf-alert pf-alert-ok" role="status"><CheckCircle2 size={18} /> {status.msg}</p>
+      {status.state === "success" && (
+        <p className="pf-alert pf-alert-ok" role="status">
+          <CheckCircle2 size={18} /> {status.msg}
+        </p>
       )}
-      {status.state === 'error' && (
-        <p className="pf-alert pf-alert-err" role="alert"><AlertCircle size={18} /> {status.msg}</p>
+      {status.state === "error" && (
+        <p className="pf-alert pf-alert-err" role="alert">
+          <AlertCircle size={18} /> {status.msg}
+        </p>
       )}
     </form>
-  )
+  );
 }
 
 function Section({ id, eyebrow, title, subtitle, children, alt }) {
   return (
-    <section id={id.toLowerCase()} className={`pf-section ${alt ? 'pf-section-alt' : ''}`}>
+    <section
+      id={id.toLowerCase()}
+      className={`pf-section ${alt ? "pf-section-alt" : ""}`}
+    >
       <div className="pf-container">
         <header className="pf-section-head pf-reveal">
           <p className="pf-eyebrow">{eyebrow}</p>
@@ -247,56 +484,73 @@ function Section({ id, eyebrow, title, subtitle, children, alt }) {
         {children}
       </div>
     </section>
-  )
+  );
 }
 
-const SECTION_IDS = NAV.map((n) => n.toLowerCase())
+const SECTION_IDS = NAV.map((n) => n.toLowerCase());
 
 export default function Portfolio() {
-  const rootRef = useRef(null)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [theme, setTheme] = useState(getInitialTheme)
-  const role = useTypewriter(ROLES)
-  const active = useActiveSection(SECTION_IDS)
-  useReveal(rootRef)
+  const rootRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState(getInitialTheme);
+  const role = useTypewriter(ROLES);
+  const active = useActiveSection(SECTION_IDS);
+  useReveal(rootRef);
 
   useEffect(() => {
-    try { localStorage.setItem('pf-theme', theme) } catch { /* ignore */ }
-  }, [theme])
+    try {
+      localStorage.setItem("pf-theme", theme);
+    } catch {
+      /* ignore */
+    }
+  }, [theme]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [menuOpen])
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <div className="pf" data-theme={theme} ref={rootRef}>
-      <header className={`pf-nav ${scrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`}>
+      <header
+        className={`pf-nav ${scrolled ? "is-scrolled" : ""} ${menuOpen ? "menu-open" : ""}`}
+      >
         <div className="pf-container pf-nav-inner">
           <a href="#top" className="pf-logo" onClick={() => setMenuOpen(false)}>
             <span className="pf-logo-mark">PS</span>
             <span className="pf-logo-text">Pavan Sai</span>
           </a>
 
-          <nav className={`pf-links ${menuOpen ? 'is-open' : ''}`}>
+          <nav className={`pf-links ${menuOpen ? "is-open" : ""}`}>
             {NAV.map((n) => {
-              const id = n.toLowerCase()
+              const id = n.toLowerCase();
               return (
-                <a key={n} href={`#${id}`} className={active === id ? 'is-active' : ''} onClick={() => setMenuOpen(false)}>
+                <a
+                  key={n}
+                  href={`#${id}`}
+                  className={active === id ? "is-active" : ""}
+                  onClick={() => setMenuOpen(false)}
+                >
                   {n}
                 </a>
-              )
+              );
             })}
-            <a href="#contact" className="pf-btn pf-btn-primary pf-nav-cta" onClick={() => setMenuOpen(false)}>
-              Hire me
+            <a
+              href="#contact"
+              className="pf-btn pf-btn-primary pf-nav-cta"
+              onClick={() => setMenuOpen(false)}
+            >
+              Contact me
             </a>
           </nav>
 
@@ -304,9 +558,9 @@ export default function Portfolio() {
             <button
               className="pf-icon-btn"
               aria-label="Toggle theme"
-              onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+              onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
             >
-              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <button
               className="pf-icon-btn pf-menu-btn"
@@ -331,30 +585,51 @@ export default function Portfolio() {
 
           <div className="pf-container pf-hero-grid">
             <div className="pf-hero-text">
-              <span className="pf-badge pf-fade" style={{ '--d': '0ms' }}><span className="pf-dot" /> Available to join immediately</span>
-              <p className="pf-hello pf-fade" style={{ '--d': '80ms' }}>Hello, I'm</p>
-              <h1 className="pf-h1 pf-fade" style={{ '--d': '160ms' }}>
+              <span className="pf-badge pf-fade" style={{ "--d": "0ms" }}>
+                <span className="pf-dot" /> Available to join immediately
+              </span>
+              <p className="pf-hello pf-fade" style={{ "--d": "80ms" }}>
+                Hello, I'm
+              </p>
+              <h1 className="pf-h1 pf-fade" style={{ "--d": "160ms" }}>
                 Pavan Sai <span className="pf-gradient-text">Sarapu</span>
               </h1>
-              <p className="pf-role pf-fade" style={{ '--d': '240ms' }}>
-                <span className="pf-role-text">{role}</span><span className="pf-caret" />
+              <p className="pf-role pf-fade" style={{ "--d": "240ms" }}>
+                <span className="pf-role-text">{role}</span>
+                <span className="pf-caret" />
               </p>
-              <p className="pf-lead pf-fade" style={{ '--d': '320ms' }}>
-                I build enterprise software end to end, from responsive React.js interfaces to
-                Node.js / Express.js REST APIs backed by MySQL, shipped on a multi-tenant Freight ERP used by ~500 people.
+              <p className="pf-lead pf-fade" style={{ "--d": "320ms" }}>
+                I build enterprise software end to end, from React.js interfaces
+                to Node.js / Express.js REST APIs backed by MySQL, with deep
+                freight accounting experience: invoicing, credit and debit
+                notes, multi-currency, AR / AP reporting and bank reconciliation
+                on a Freight ERP used by ~500 people.
               </p>
-              <div className="pf-cta pf-fade" style={{ '--d': '400ms' }}>
-                <a href="#contact" className="pf-btn pf-btn-primary">Get in touch <ArrowRight size={16} /></a>
-                <a href="#projects" className="pf-btn pf-btn-ghost">View my work</a>
+              <div className="pf-cta pf-fade" style={{ "--d": "400ms" }}>
+                <a href="#contact" className="pf-btn pf-btn-primary">
+                  Get in touch <ArrowRight size={16} />
+                </a>
+                <a href="#projects" className="pf-btn pf-btn-ghost">
+                  View my work
+                </a>
               </div>
-              <div className="pf-meta pf-fade" style={{ '--d': '480ms' }}>
-                <a href={`mailto:${EMAIL}`}><Mail size={16} /> {EMAIL}</a>
-                <a href={LINKEDIN} target="_blank" rel="noopener noreferrer"><Linkedin size={16} /> LinkedIn</a>
-                <a href={GITHUB} target="_blank" rel="noopener noreferrer"><Github size={16} /> GitHub</a>
+              <div className="pf-meta pf-fade" style={{ "--d": "480ms" }}>
+                <a href={`mailto:${EMAIL}`}>
+                  <Mail size={16} /> {EMAIL}
+                </a>
+                <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+                  <Linkedin size={16} /> LinkedIn
+                </a>
+                <a href={GITHUB} target="_blank" rel="noopener noreferrer">
+                  <Github size={16} /> GitHub
+                </a>
               </div>
             </div>
 
-            <aside className="pf-card pf-hero-card pf-fade" style={{ '--d': '200ms' }}>
+            <aside
+              className="pf-card pf-hero-card pf-fade"
+              style={{ "--d": "200ms" }}
+            >
               <div className="pf-hc-head">
                 <div className="pf-hc-avatar">
                   <span className="pf-avatar-ring" aria-hidden="true" />
@@ -363,14 +638,21 @@ export default function Portfolio() {
                 <div>
                   <strong>Pavan Sai Sarapu</strong>
                   <span>Full Stack Developer</span>
-                  <small><MapPin size={13} /> Hyderabad, India</small>
+                  <small>
+                    <MapPin size={13} /> Hyderabad, India
+                  </small>
                 </div>
               </div>
 
               <div className="pf-hc-work">
-                <p className="pf-hc-label"><Briefcase size={13} /> Recent work · VoltusWave</p>
+                <p className="pf-hc-label">
+                  <Briefcase size={13} /> Recent work · VoltusWave
+                </p>
                 <h3>Multi-tenant Freight ERP</h3>
-                <p className="pf-muted">Accounting, CRM and Sales modules for sea, air and road freight.</p>
+                <p className="pf-muted">
+                  Accounting, AR / AP reporting, bank reconciliation, CRM and
+                  Sales modules for sea, air and road freight.
+                </p>
               </div>
 
               <div className="pf-hc-stats">
@@ -383,53 +665,105 @@ export default function Portfolio() {
               </div>
 
               <div className="pf-chips">
-                {HERO_STACK.map((t) => <span key={t} className="pf-chip pf-chip-sm">{t}</span>)}
+                {HERO_STACK.map((t) => (
+                  <span key={t} className="pf-chip pf-chip-sm">
+                    {t}
+                  </span>
+                ))}
               </div>
             </aside>
           </div>
         </section>
 
-        <Section id="About" eyebrow="About me" title="Developer focused on real business workflows"
-          subtitle="Freight, CRM and accounting systems, from database to UI.">
+        <Section
+          id="About"
+          eyebrow="About me"
+          title="Developer focused on real business workflows"
+          subtitle="Freight, CRM and accounting systems, from database to UI."
+        >
           <div className="pf-about">
             <div className="pf-about-text pf-reveal">
               <p>
-                I'm a <strong>Full Stack Developer</strong> with 1 year 10 months of experience building enterprise
-                software on a <strong>multi-tenant Freight ERP</strong> used by 5 client companies and ~500 users. As part
-                of a 20-member team, I delivered features across Accounting, CRM and Sales on production systems running on AWS.
+                I'm a <strong>Full Stack Developer</strong> with 1 year 10
+                months of experience building enterprise software on a{" "}
+                <strong>multi-tenant Freight ERP</strong> used by 5 client
+                companies and ~500 users. As part of a 20-member team, I
+                delivered features across Accounting, CRM and Sales on
+                production systems running on AWS.
               </p>
               <p>
-                I work across the stack with <strong>React.js, Redux Toolkit, Node.js, Express.js and MySQL</strong>,
-                and have built Google Calendar, Outlook Calendar and Zoom integrations, AI-assisted email extraction
-                and a dynamic PDF template engine. I'm available to join immediately.
+                A large part of my work is <strong>freight accounting</strong>:
+                customer sales invoices, supplier purchase invoices, credit
+                notes to customers, debit notes to suppliers, receipts and
+                payments, multi-currency transactions,{" "}
+                <strong>AR / AP reports</strong> and{" "}
+                <strong>bank reconciliation</strong> against journal entries. I
+                also contributed to <strong>LLM-assisted extraction</strong> of
+                emails, purchase invoices and bank statements through field
+                definition, prompt refinement and output review.
               </p>
-              <a href="#contact" className="pf-link">Let's talk <ArrowUpRight size={16} /></a>
+              <p>
+                I work across the stack with{" "}
+                <strong>
+                  React.js, Redux Toolkit, Node.js, Express.js, MySQL and Python
+                </strong>
+                , and have built Google Calendar, Outlook Calendar and Zoom
+                integrations and a dynamic PDF template engine. I'm available to
+                join immediately.
+              </p>
+              <a href="#contact" className="pf-link">
+                Let's talk <ArrowUpRight size={16} />
+              </a>
             </div>
             <div className="pf-card pf-info pf-reveal">
               {QUICK_INFO.map(({ icon: Icon, label, value, href }) => {
-                const Tag = href ? 'a' : 'div'
+                const Tag = href ? "a" : "div";
                 return (
-                  <Tag key={label} className="pf-info-row" {...(href ? { href } : {})}>
-                    <span className="pf-card-icon"><Icon size={18} /></span>
-                    <div><small>{label}</small><span>{value}</span></div>
+                  <Tag
+                    key={label}
+                    className="pf-info-row"
+                    {...(href ? { href } : {})}
+                  >
+                    <span className="pf-card-icon">
+                      <Icon size={18} />
+                    </span>
+                    <div>
+                      <small>{label}</small>
+                      <span>{value}</span>
+                    </div>
                   </Tag>
-                )
+                );
               })}
             </div>
           </div>
         </Section>
 
-        <Section id="Skills" eyebrow="Skills" title="Technical toolkit"
-          subtitle="Technologies I use day to day to ship features across the stack." alt>
+        <Section
+          id="Skills"
+          eyebrow="Skills"
+          title="Technical toolkit"
+          subtitle="Technologies and domain skills I use day to day to ship features across the stack."
+          alt
+        >
           <div className="pf-skills">
             {SKILLS.map(({ icon: Icon, title, items }, i) => (
-              <div key={title} className="pf-card pf-skill pf-reveal" style={{ '--d': `${i * 70}ms` }}>
+              <div
+                key={title}
+                className="pf-card pf-skill pf-reveal"
+                style={{ "--d": `${i * 70}ms` }}
+              >
                 <div className="pf-card-head">
-                  <span className="pf-card-icon"><Icon size={18} /></span>
+                  <span className="pf-card-icon">
+                    <Icon size={18} />
+                  </span>
                   <h3>{title}</h3>
                 </div>
                 <div className="pf-chips">
-                  {items.map((it) => <span key={it} className="pf-chip">{it}</span>)}
+                  {items.map((it) => (
+                    <span key={it} className="pf-chip">
+                      {it}
+                    </span>
+                  ))}
                 </div>
               </div>
             ))}
@@ -446,15 +780,23 @@ export default function Portfolio() {
                     <div>
                       <h3>{e.role}</h3>
                       <p className="pf-company">{e.company}</p>
-                      <p className="pf-muted pf-small"><MapPin size={14} /> {e.location}</p>
+                      <p className="pf-muted pf-small">
+                        <MapPin size={14} /> {e.location}
+                      </p>
                     </div>
                     <span className="pf-period">{e.period}</span>
                   </div>
                   <ul className="pf-list">
-                    {e.points.map((p) => <li key={p}>{p}</li>)}
+                    {e.points.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
                   </ul>
                   <div className="pf-chips pf-exp-stack">
-                    {e.stack.map((s) => <span key={s} className="pf-chip pf-chip-sm">{s}</span>)}
+                    {e.stack.map((s) => (
+                      <span key={s} className="pf-chip pf-chip-sm">
+                        {s}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </article>
@@ -462,19 +804,34 @@ export default function Portfolio() {
           </div>
         </Section>
 
-        <Section id="Projects" eyebrow="Projects" title="Things I've built"
-          subtitle="Highlights from production work at VoltusWave." alt>
+        <Section
+          id="Projects"
+          eyebrow="Projects"
+          title="Things I've built"
+          subtitle="Highlights from production work at VoltusWave."
+          alt
+        >
           <div className="pf-projects">
             {PROJECTS.map(({ icon: Icon, title, desc, tags }, i) => (
-              <article key={title} className="pf-card pf-project pf-reveal" style={{ '--d': `${i * 90}ms` }}>
+              <article
+                key={title}
+                className="pf-card pf-project pf-reveal"
+                style={{ "--d": `${i * 90}ms` }}
+              >
                 <div className="pf-project-top">
-                  <span className="pf-card-icon pf-card-icon-lg"><Icon size={22} /></span>
+                  <span className="pf-card-icon pf-card-icon-lg">
+                    <Icon size={22} />
+                  </span>
                   <span className="pf-project-num">0{i + 1}</span>
                 </div>
                 <h3>{title}</h3>
                 <p className="pf-muted">{desc}</p>
                 <div className="pf-chips">
-                  {tags.map((t) => <span key={t} className="pf-chip pf-chip-sm">{t}</span>)}
+                  {tags.map((t) => (
+                    <span key={t} className="pf-chip pf-chip-sm">
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </article>
             ))}
@@ -484,8 +841,14 @@ export default function Portfolio() {
         <Section id="Education" eyebrow="Education" title="Academic background">
           <div className="pf-edu">
             {EDUCATION.map((ed, i) => (
-              <div key={ed.degree} className="pf-card pf-edu-item pf-reveal" style={{ '--d': `${i * 90}ms` }}>
-                <span className="pf-card-icon pf-card-icon-lg"><GraduationCap size={22} /></span>
+              <div
+                key={ed.degree}
+                className="pf-card pf-edu-item pf-reveal"
+                style={{ "--d": `${i * 90}ms` }}
+              >
+                <span className="pf-card-icon pf-card-icon-lg">
+                  <GraduationCap size={22} />
+                </span>
                 <div>
                   <span className="pf-edu-year">{ed.year}</span>
                   <h3>{ed.degree}</h3>
@@ -497,28 +860,61 @@ export default function Portfolio() {
           </div>
         </Section>
 
-        <Section id="Contact" eyebrow="Contact" title="Let's work together"
-          subtitle="Open to full stack and frontend roles. Drop a message and I'll get back to you." alt>
+        <Section
+          id="Contact"
+          eyebrow="Contact"
+          title="Let's work together"
+          subtitle="Open to full stack and frontend roles. Drop a message and I'll get back to you."
+          alt
+        >
           <div className="pf-contact">
             <div className="pf-contact-info pf-reveal">
               <a className="pf-card pf-contact-item" href={`mailto:${EMAIL}`}>
-                <span className="pf-card-icon"><Mail size={18} /></span>
-                <div><small>Email</small><span>{EMAIL}</span></div>
+                <span className="pf-card-icon">
+                  <Mail size={18} />
+                </span>
+                <div>
+                  <small>Email</small>
+                  <span>{EMAIL}</span>
+                </div>
               </a>
-              <a className="pf-card pf-contact-item" href={`tel:${PHONE.replace(/\s/g, '')}`}>
-                <span className="pf-card-icon"><Phone size={18} /></span>
-                <div><small>Phone</small><span>{PHONE}</span></div>
+              <a
+                className="pf-card pf-contact-item"
+                href={`tel:${PHONE.replace(/\s/g, "")}`}
+              >
+                <span className="pf-card-icon">
+                  <Phone size={18} />
+                </span>
+                <div>
+                  <small>Phone</small>
+                  <span>{PHONE}</span>
+                </div>
               </a>
-              <a className="pf-card pf-contact-item" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
-                <span className="pf-card-icon"><Linkedin size={18} /></span>
-                <div><small>LinkedIn</small><span>pavan-sai-sarapu</span></div>
+              <a
+                className="pf-card pf-contact-item"
+                href={LINKEDIN}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="pf-card-icon">
+                  <Linkedin size={18} />
+                </span>
+                <div>
+                  <small>LinkedIn</small>
+                  <span>pavan-sai-sarapu</span>
+                </div>
               </a>
               <div className="pf-card pf-contact-item">
-                <span className="pf-card-icon"><MapPin size={18} /></span>
-                <div><small>Location</small><span>Hyderabad, India</span></div>
+                <span className="pf-card-icon">
+                  <MapPin size={18} />
+                </span>
+                <div>
+                  <small>Location</small>
+                  <span>Hyderabad, India</span>
+                </div>
               </div>
             </div>
-            <div className="pf-reveal" style={{ '--d': '100ms' }}>
+            <div className="pf-reveal" style={{ "--d": "100ms" }}>
               <ContactForm />
             </div>
           </div>
@@ -531,9 +927,11 @@ export default function Portfolio() {
             <span className="pf-logo-mark">PS</span>
             <span>Pavan Sai Sarapu</span>
           </a>
-          <p>© {new Date().getFullYear()} Pavan Sai Sarapu · Built with React</p>
+          <p>
+            © {new Date().getFullYear()} Pavan Sai Sarapu · Built with React
+          </p>
         </div>
       </footer>
     </div>
-  )
+  );
 }
