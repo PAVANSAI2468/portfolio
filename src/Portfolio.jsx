@@ -56,7 +56,7 @@ const ROLES = [
 ];
 
 const STATS = [
-  { value: "1y 10m", label: "Experience" },
+  { value: "1y 11m", label: "Experience" },
   { value: "5", label: "Client companies" },
   { value: "~500", label: "Platform users" },
   { value: "20", label: "Team members" },
@@ -684,7 +684,7 @@ export default function Portfolio() {
           <div className="pf-about">
             <div className="pf-about-text pf-reveal">
               <p>
-                I'm a <strong>Full Stack Developer</strong> with 1 year 10
+                I'm a <strong>Full Stack Developer</strong> with 1 year 11
                 months of experience building enterprise software on a{" "}
                 <strong>multi-tenant Freight ERP</strong> used by 5 client
                 companies and ~500 users. As part of a 20-member team, I
